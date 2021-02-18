@@ -71,6 +71,39 @@ Then run migrations using,
 $ rails db:create
 $ rails db:migrate
 
+## Adding Groups
+
+```bash
+rails g scaffold Group name
+```
+
+For our app, we don't need update and destroy for groups so we'll remove the udpate and destroy actions from the GroupsController and update the routes.rb file like so:
+
+```rb
+resources :groups, except: [:update, :destroy]
+```
+
+WE can test out our routes by running 
+
+```bash
+rails routes | grep groups
+```
+
+We get something like this: 
+
+```bash
+ groups GET    /groups(.:format)          groups#index
+        POST   /groups(.:format)          groups#create
+  group GET    /groups/:id(.:format)      groups#show
+```
+
+We can run the migration to add the table 
+
+```bash
+rails db:migrate
+```
+
+
 ## Resources
 
 - [Postico](https://eggerapps.at/postico/)
