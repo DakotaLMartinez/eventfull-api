@@ -204,8 +204,48 @@ now let's run it
 ```bash
 rails db:migrate
 ```
-Now we can make a commit
+Now we can make a commit.
+
+## Add Relationships
+
+```rb
+class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  has_many :events
+end
+```
+
+```rb
+class Group < ApplicationRecord
+  has_many :events
+end
+```
+
+```rb
+class Event < ApplicationRecord
+  has_one_attached :poster
+  belongs_to :user
+  belongs_to :group
+end
+```
 
 ## Resources
 
+- [Domain Model Spreadsheet](https://docs.google.com/spreadsheets/d/1PHFT9h7G_f735wu_FplfiZcQXXxMj4fyPCkSkp6kDOY/edit#gid=0)
 - [Postico](https://eggerapps.at/postico/)
+- [ActiveStorage Rails API File Uploads Tutorial](https://github.com/DakotaLMartinez/active_storage_with_api_tutorial/tree/main)
+- [Devise JWT Tutorial](https://github.com/dakotalmartinez/rails-devise-jwt-tutorial)
+- [JSONAPI-Serializer gem (replacement for fast-jsonapi)](https://github.com/jsonapi-serializer/jsonapi-serializer)
+
+## Links to Code for Study Groups
+
+
+Part | Starter Code | Ending Code
+---------|----------|---------
+ 1 | B1 | [Ending code](https://github.com/DakotaLMartinez/eventfull-api/tree/01_end)
+ A2 | B2 | C2
+ A3 | B3 | C3
