@@ -246,6 +246,6 @@ end
 
 Part | Starter Code | Ending Code
 ---------|----------|---------
- 1 | B1 | [Ending code](https://github.com/DakotaLMartinez/eventfull-api/tree/01_end)
+ 1 | [Starter Code](https://github.com/DakotaLMartinez/eventfull-api/tree/01_start) | [Ending code](https://github.com/DakotaLMartinez/eventfull-api/tree/01_end)
  A2 | B2 | C2
  A3 | B3 | C3
