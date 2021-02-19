@@ -164,18 +164,47 @@ In order to test this out, we're going to need a model we can attach uploads to.
 rails g scaffold Event name start_time:datetime end_time:datetime location
 ```
 Now, we'll need to make a couple of changes to allow uploading a poster. First, we'll add a macro to the Event model:
-
+```rb
 class Event < ApplicationRecord
   has_one_attached :poster
 end
+```
 Next, we'll need to permit a poster through the params in the EventsController
-
+```rb
 def event_params
   params.require(:event).permit(:name, :start_time, :end_time, :location, :poster)
 end
-Before we move on, let's run the migration to create our events table.
+```
+Before we move on, let's check the migration to create our events table.
+Add these two lines to the bottom
+```rb
+t.references :group, null: false, foreign_key: true
+t.references :users, null: false, foreign_key: true
+```
+So we'll have this:
 
+```rb
+class CreateEvents < ActiveRecord::Migration[6.1]
+  def change
+    create_table :events do |t|
+      t.string :name
+      t.datetime :start_time
+      t.datetime :end_time
+      t.string :location
+      t.references :group, null: false, foreign_key: true
+      t.references :users, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+```
+now let's run it
+```bash
 rails db:migrate
+```
+Now we can make a commit
 
 ## Resources
 

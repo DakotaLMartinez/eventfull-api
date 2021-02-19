@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_18_234759) do
+ActiveRecord::Schema.define(version: 2021_02_18_235719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,19 @@ ActiveRecord::Schema.define(version: 2021_02_18_234759) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "location"
+    t.bigint "group_id", null: false
+    t.bigint "users_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_events_on_group_id"
+    t.index ["users_id"], name: "index_events_on_users_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -63,4 +76,6 @@ ActiveRecord::Schema.define(version: 2021_02_18_234759) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "groups"
+  add_foreign_key "events", "users", column: "users_id"
 end
